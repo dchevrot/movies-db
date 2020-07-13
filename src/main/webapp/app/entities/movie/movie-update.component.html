@@ -1,0 +1,178 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-movie-heading" jhiTranslate="moviesDbApp.movie.home.createOrEditLabel">Create or edit a Movie</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.title" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                           formControlName="title"/>
+                    <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.year" for="field_year">Year</label>
+                    <input type="number" class="form-control" name="year" id="field_year"
+                           formControlName="year"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.rate" for="field_rate">Rate</label>
+                    <input type="text" class="form-control" name="rate" id="field_rate"
+                           formControlName="rate"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.releaseDate" for="field_releaseDate">Release Date</label>
+                    <div class="input-group">
+                        <input id="field_releaseDate" type="text" class="form-control" name="releaseDate" ngbDatepicker #releaseDateDp="ngbDatepicker" formControlName="releaseDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="releaseDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.runtime" for="field_runtime">Runtime</label>
+                    <input type="number" class="form-control" name="runtime" id="field_runtime"
+                           formControlName="runtime"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.genre" for="field_genre">Genre</label>
+                    <input type="text" class="form-control" name="genre" id="field_genre"
+                           formControlName="genre"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.director" for="field_director">Director</label>
+                    <input type="text" class="form-control" name="director" id="field_director"
+                           formControlName="director"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.writers" for="field_writers">Writers</label>
+                    <input type="text" class="form-control" name="writers" id="field_writers"
+                           formControlName="writers"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.actors" for="field_actors">Actors</label>
+                    <input type="text" class="form-control" name="actors" id="field_actors"
+                           formControlName="actors"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.plot" for="field_plot">Plot</label>
+                    <input type="text" class="form-control" name="plot" id="field_plot"
+                           formControlName="plot"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.language" for="field_language">Language</label>
+                    <input type="text" class="form-control" name="language" id="field_language"
+                           formControlName="language"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.country" for="field_country">Country</label>
+                    <input type="text" class="form-control" name="country" id="field_country"
+                           formControlName="country"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.awards" for="field_awards">Awards</label>
+                    <input type="text" class="form-control" name="awards" id="field_awards"
+                           formControlName="awards"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.posterLink" for="field_posterLink">Poster Link</label>
+                    <input type="text" class="form-control" name="posterLink" id="field_posterLink"
+                           formControlName="posterLink"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.ratings" for="field_ratings">Ratings</label>
+                    <input type="text" class="form-control" name="ratings" id="field_ratings"
+                           formControlName="ratings"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.metascore" for="field_metascore">Metascore</label>
+                    <input type="number" class="form-control" name="metascore" id="field_metascore"
+                           formControlName="metascore"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.imdbRating" for="field_imdbRating">Imdb Rating</label>
+                    <input type="number" class="form-control" name="imdbRating" id="field_imdbRating"
+                           formControlName="imdbRating"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.imdbVotes" for="field_imdbVotes">Imdb Votes</label>
+                    <input type="number" class="form-control" name="imdbVotes" id="field_imdbVotes"
+                           formControlName="imdbVotes"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.imdbId" for="field_imdbId">Imdb Id</label>
+                    <input type="text" class="form-control" name="imdbId" id="field_imdbId"
+                           formControlName="imdbId"/>
+                    <div *ngIf="editForm.get('imdbId')!.invalid && (editForm.get('imdbId')!.dirty || editForm.get('imdbId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('imdbId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.type" for="field_type">Type</label>
+                    <input type="text" class="form-control" name="type" id="field_type"
+                           formControlName="type"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.dvdReleaseDate" for="field_dvdReleaseDate">Dvd Release Date</label>
+                    <div class="input-group">
+                        <input id="field_dvdReleaseDate" type="text" class="form-control" name="dvdReleaseDate" ngbDatepicker #dvdReleaseDateDp="ngbDatepicker" formControlName="dvdReleaseDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dvdReleaseDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="moviesDbApp.movie.boxOffice" for="field_boxOffice">Box Office</label>
+                    <input type="number" class="form-control" name="boxOffice" id="field_boxOffice"
+                           formControlName="boxOffice"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

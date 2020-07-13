@@ -48,6 +48,7 @@ public class CacheConfiguration {
             createCache(cm, fr.decathlon.moviesdb.domain.User.class.getName());
             createCache(cm, fr.decathlon.moviesdb.domain.Authority.class.getName());
             createCache(cm, fr.decathlon.moviesdb.domain.User.class.getName() + ".authorities");
+            createCache(cm, fr.decathlon.moviesdb.domain.Movie.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

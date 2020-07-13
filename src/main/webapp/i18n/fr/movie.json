@@ -1,0 +1,43 @@
+{
+  "moviesDbApp": {
+    "movie": {
+      "home": {
+        "title": "Movies",
+        "createLabel": "Créer un nouveau Movie",
+        "createOrEditLabel": "Créer ou éditer un Movie",
+        "notFound": "Aucun Movie trouvé"
+      },
+      "created": "Un nouveau Movie a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Movie avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Movie avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Movie {{ id }} ?"
+      },
+      "detail": {
+        "title": "Movie"
+      },
+      "title": "Title",
+      "year": "Year",
+      "rate": "Rate",
+      "releaseDate": "Release Date",
+      "runtime": "Runtime",
+      "genre": "Genre",
+      "director": "Director",
+      "writers": "Writers",
+      "actors": "Actors",
+      "plot": "Plot",
+      "language": "Language",
+      "country": "Country",
+      "awards": "Awards",
+      "posterLink": "Poster Link",
+      "ratings": "Ratings",
+      "metascore": "Metascore",
+      "imdbRating": "Imdb Rating",
+      "imdbVotes": "Imdb Votes",
+      "imdbId": "Imdb Id",
+      "type": "Type",
+      "dvdReleaseDate": "Dvd Release Date",
+      "boxOffice": "Box Office"
+    }
+  }
+}

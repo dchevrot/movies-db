@@ -1,0 +1,106 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [],
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "year",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "rate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "releaseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "runtime",
+      "fieldType": "Duration"
+    },
+    {
+      "fieldName": "genre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "director",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "writers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "actors",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "plot",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "awards",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "posterLink",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ratings",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "metascore",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "imdbRating",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "imdbVotes",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "imdbId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dvdReleaseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "boxOffice",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20200713153545",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceImpl",
+  "entityTableName": "movie",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "infinite-scroll"
+}

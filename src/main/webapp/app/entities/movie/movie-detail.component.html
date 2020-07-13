@@ -1,0 +1,114 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movie">
+            <h2><span jhiTranslate="moviesDbApp.movie.detail.title">Movie</span> {{ movie.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="moviesDbApp.movie.title">Title</span></dt>
+                <dd>
+                    <span>{{ movie.title }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.year">Year</span></dt>
+                <dd>
+                    <span>{{ movie.year }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.rate">Rate</span></dt>
+                <dd>
+                    <span>{{ movie.rate }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.releaseDate">Release Date</span></dt>
+                <dd>
+                    <span>{{ movie.releaseDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.runtime">Runtime</span></dt>
+                <dd>
+                    <span>{{ movie.runtime }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.genre">Genre</span></dt>
+                <dd>
+                    <span>{{ movie.genre }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.director">Director</span></dt>
+                <dd>
+                    <span>{{ movie.director }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.writers">Writers</span></dt>
+                <dd>
+                    <span>{{ movie.writers }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.actors">Actors</span></dt>
+                <dd>
+                    <span>{{ movie.actors }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.plot">Plot</span></dt>
+                <dd>
+                    <span>{{ movie.plot }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.language">Language</span></dt>
+                <dd>
+                    <span>{{ movie.language }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.country">Country</span></dt>
+                <dd>
+                    <span>{{ movie.country }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.awards">Awards</span></dt>
+                <dd>
+                    <span>{{ movie.awards }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.posterLink">Poster Link</span></dt>
+                <dd>
+                    <span>{{ movie.posterLink }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.ratings">Ratings</span></dt>
+                <dd>
+                    <span>{{ movie.ratings }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.metascore">Metascore</span></dt>
+                <dd>
+                    <span>{{ movie.metascore }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.imdbRating">Imdb Rating</span></dt>
+                <dd>
+                    <span>{{ movie.imdbRating }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.imdbVotes">Imdb Votes</span></dt>
+                <dd>
+                    <span>{{ movie.imdbVotes }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.imdbId">Imdb Id</span></dt>
+                <dd>
+                    <span>{{ movie.imdbId }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.type">Type</span></dt>
+                <dd>
+                    <span>{{ movie.type }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.dvdReleaseDate">Dvd Release Date</span></dt>
+                <dd>
+                    <span>{{ movie.dvdReleaseDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="moviesDbApp.movie.boxOffice">Box Office</span></dt>
+                <dd>
+                    <span>{{ movie.boxOffice }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movie', movie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="moviesDbApp.movie.home.title">Movies</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-movie" [routerLink]="['/movie/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="moviesDbApp.movie.home.createLabel">
+            Create a new Movie
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="movies?.length === 0">
+        <span jhiTranslate="moviesDbApp.movie.home.notFound">No movies found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="movies && movies.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="title"><span jhiTranslate="moviesDbApp.movie.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="year"><span jhiTranslate="moviesDbApp.movie.year">Year</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="rate"><span jhiTranslate="moviesDbApp.movie.rate">Rate</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="releaseDate"><span jhiTranslate="moviesDbApp.movie.releaseDate">Release Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="runtime"><span jhiTranslate="moviesDbApp.movie.runtime">Runtime</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="genre"><span jhiTranslate="moviesDbApp.movie.genre">Genre</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="director"><span jhiTranslate="moviesDbApp.movie.director">Director</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="writers"><span jhiTranslate="moviesDbApp.movie.writers">Writers</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="actors"><span jhiTranslate="moviesDbApp.movie.actors">Actors</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="plot"><span jhiTranslate="moviesDbApp.movie.plot">Plot</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="language"><span jhiTranslate="moviesDbApp.movie.language">Language</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="country"><span jhiTranslate="moviesDbApp.movie.country">Country</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="awards"><span jhiTranslate="moviesDbApp.movie.awards">Awards</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="posterLink"><span jhiTranslate="moviesDbApp.movie.posterLink">Poster Link</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="ratings"><span jhiTranslate="moviesDbApp.movie.ratings">Ratings</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="metascore"><span jhiTranslate="moviesDbApp.movie.metascore">Metascore</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="imdbRating"><span jhiTranslate="moviesDbApp.movie.imdbRating">Imdb Rating</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="imdbVotes"><span jhiTranslate="moviesDbApp.movie.imdbVotes">Imdb Votes</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="imdbId"><span jhiTranslate="moviesDbApp.movie.imdbId">Imdb Id</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="type"><span jhiTranslate="moviesDbApp.movie.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dvdReleaseDate"><span jhiTranslate="moviesDbApp.movie.dvdReleaseDate">Dvd Release Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="boxOffice"><span jhiTranslate="moviesDbApp.movie.boxOffice">Box Office</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let movie of movies ;trackBy: trackId">
+                    <td><a [routerLink]="['/movie', movie.id, 'view']">{{ movie.id }}</a></td>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.year }}</td>
+                    <td>{{ movie.rate }}</td>
+                    <td>{{ movie.releaseDate | date:'mediumDate' }}</td>
+                    <td>{{ movie.runtime }}</td>
+                    <td>{{ movie.genre }}</td>
+                    <td>{{ movie.director }}</td>
+                    <td>{{ movie.writers }}</td>
+                    <td>{{ movie.actors }}</td>
+                    <td>{{ movie.plot }}</td>
+                    <td>{{ movie.language }}</td>
+                    <td>{{ movie.country }}</td>
+                    <td>{{ movie.awards }}</td>
+                    <td>{{ movie.posterLink }}</td>
+                    <td>{{ movie.ratings }}</td>
+                    <td>{{ movie.metascore }}</td>
+                    <td>{{ movie.imdbRating }}</td>
+                    <td>{{ movie.imdbVotes }}</td>
+                    <td>{{ movie.imdbId }}</td>
+                    <td>{{ movie.type }}</td>
+                    <td>{{ movie.dvdReleaseDate | date:'mediumDate' }}</td>
+                    <td>{{ movie.boxOffice }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/movie', movie.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/movie', movie.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(movie)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
