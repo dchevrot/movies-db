@@ -1,6 +1,7 @@
 package fr.decathlon.moviesdb.web.rest;
 
 import fr.decathlon.moviesdb.service.MovieService;
+import fr.decathlon.moviesdb.service.dto.MovieCreationDTO;
 import fr.decathlon.moviesdb.web.rest.errors.BadRequestAlertException;
 import fr.decathlon.moviesdb.service.dto.MovieDTO;
 import fr.decathlon.moviesdb.service.dto.MovieCriteria;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * REST controller for managing {@link fr.decathlon.moviesdb.domain.Movie}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class MovieResource {
 
     private final Logger log = LoggerFactory.getLogger(MovieResource.class);
@@ -57,13 +58,11 @@ public class MovieResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/movies")
-    public ResponseEntity<MovieDTO> createMovie(@Valid @RequestBody MovieDTO movieDTO) throws URISyntaxException {
+    public ResponseEntity<MovieDTO> createMovie(@Valid @RequestBody MovieCreationDTO movieDTO) throws URISyntaxException {
         log.debug("REST request to save Movie : {}", movieDTO);
-        if (movieDTO.getId() != null) {
-            throw new BadRequestAlertException("A new movie cannot already have an ID", ENTITY_NAME, "idexists");
-        }
+
         MovieDTO result = movieService.save(movieDTO);
-        return ResponseEntity.created(new URI("/api/movies/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/v1/movies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -83,7 +82,7 @@ public class MovieResource {
         if (movieDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MovieDTO result = movieService.save(movieDTO);
+        MovieDTO result = movieService.update(movieDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, movieDTO.getId().toString()))
             .body(result);

@@ -2,6 +2,7 @@ package fr.decathlon.moviesdb;
 
 import fr.decathlon.moviesdb.config.ApplicationProperties;
 
+import fr.decathlon.moviesdb.external.sources.config.ExternalSourcesConfiguration;
 import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;

@@ -163,3 +163,7 @@ jhipster:
 # ===================================================================
 
 # application:
+external-movies-sources:
+  omdb:
+    url: http://www.omdbapi.com
+    apikey: bd167ba6

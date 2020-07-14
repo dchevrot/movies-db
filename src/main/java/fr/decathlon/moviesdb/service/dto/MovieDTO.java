@@ -4,12 +4,13 @@ import java.time.LocalDate;
 import java.time.Duration;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A DTO for the {@link fr.decathlon.moviesdb.domain.Movie} entity.
  */
 public class MovieDTO implements Serializable {
-    
+
     private Long id;
 
     @NotNull
@@ -58,7 +59,7 @@ public class MovieDTO implements Serializable {
 
     private Integer boxOffice;
 
-    
+
     public Long getId() {
         return id;
     }
@@ -257,7 +258,7 @@ public class MovieDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(id);
     }
 
     // prettier-ignore

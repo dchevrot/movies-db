@@ -13,7 +13,6 @@ import org.mapstruct.*;
 public interface MovieMapper extends EntityMapper<MovieDTO, Movie> {
 
 
-
     default Movie fromId(Long id) {
         if (id == null) {
             return null;
