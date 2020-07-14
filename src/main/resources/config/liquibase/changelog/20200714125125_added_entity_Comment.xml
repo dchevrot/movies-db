@@ -21,10 +21,9 @@
             <column name="movie_id" type="bigint">
                 <constraints nullable="false" />
             </column>
-            <column name="creation_date" type="date">
-                <constraints nullable="false" />
+            <column name="creation_date" type="timestamp with time zone" defaultValueComputed="current_timestamp">
+                <constraints nullable="true" />
             </column>
-            creation_date
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

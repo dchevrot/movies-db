@@ -2,6 +2,7 @@ package fr.decathlon.moviesdb.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -17,6 +18,8 @@ public class CommentDTO implements Serializable {
 
     @NotNull
     private Long movieId;
+
+    private LocalDateTime creationDate;
 
     public Long getId() {
         return id;
@@ -42,28 +45,37 @@ public class CommentDTO implements Serializable {
         this.movieId = movieId;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CommentDTO)) return false;
         CommentDTO that = (CommentDTO) o;
-        return id.equals(that.id) &&
-            body.equals(that.body) &&
-            movieId.equals(that.movieId);
+        return Objects.equals(id, that.id) &&
+            Objects.equals(body, that.body) &&
+            Objects.equals(movieId, that.movieId) &&
+            Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, body, movieId);
+        return Objects.hash(id, body, movieId, creationDate);
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "CommentDTO{" +
-            "id=" + getId() +
-            ", body='" + getBody() + "'" +
-            ", movieId=" + getMovieId() +
-            "}";
+            "id=" + id +
+            ", body='" + body + '\'' +
+            ", movieId=" + movieId +
+            ", creationDate=" + creationDate +
+            '}';
     }
 }

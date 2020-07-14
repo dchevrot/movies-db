@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -123,7 +124,7 @@ public class CommentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the {@link TopDTO}s list, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/top")
-    public ResponseEntity<List<TopDTO>> getTop(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Pageable pageable) {
+    public ResponseEntity<List<TopDTO>> getTop(@RequestParam() @DateTimeFormat(pattern="MMddyyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern="MMddyyyy") LocalDate endDate, Pageable pageable) {
         log.debug("REST request to get top commented movies from : {}, to {}", startDate, endDate);
         Page<TopDTO> tops = commentService.getTop(startDate, endDate, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), tops);

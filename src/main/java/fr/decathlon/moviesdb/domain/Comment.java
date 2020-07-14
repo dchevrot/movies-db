@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * A Comment.
@@ -33,6 +35,9 @@ public class Comment implements Serializable {
     @NotNull
     @JsonIgnoreProperties(value = "comments", allowSetters = true)
     private Movie movie;
+
+    @Column(name = "creation_date", columnDefinition = "TIMESTAMP")
+    private LocalDateTime creationDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -70,28 +75,35 @@ public class Comment implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Comment)) {
-            return false;
-        }
-        return id != null && id.equals(((Comment) o).id);
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(id);
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "Comment{" +
-            "id=" + getId() +
-            ", body='" + getBody() + "'" +
-            "}";
+            "id=" + id +
+            ", body='" + body + '\'' +
+            ", movie=" + movie +
+            ", creationDate=" + creationDate +
+            '}';
     }
 }

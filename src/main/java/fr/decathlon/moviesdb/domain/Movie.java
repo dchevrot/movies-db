@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Duration;
+import java.util.Objects;
 
 /**
  * A Movie.
@@ -402,7 +403,7 @@ public class Movie implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(id);
     }
 
     // prettier-ignore
