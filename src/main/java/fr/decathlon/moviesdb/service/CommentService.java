@@ -2,9 +2,11 @@ package fr.decathlon.moviesdb.service;
 
 import fr.decathlon.moviesdb.service.dto.CommentDTO;
 
+import fr.decathlon.moviesdb.service.dto.TopDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -43,4 +45,13 @@ public interface CommentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get top commented movies
+     * @param startDate
+     * @param endDate
+     * @param pageable
+     * @return the top commented movies
+     */
+    Page<TopDTO> getTop(LocalDate startDate, LocalDate endDate, Pageable pageable);
 }

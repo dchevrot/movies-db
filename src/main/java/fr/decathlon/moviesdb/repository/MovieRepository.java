@@ -14,5 +14,4 @@ import java.util.Optional;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecificationExecutor<Movie>, MovieSource {
 
-    Optional<Movie> findOneByTitle(String title);
 }

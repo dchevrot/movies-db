@@ -1,9 +1,10 @@
 package fr.decathlon.moviesdb.web.rest;
 
+import fr.decathlon.moviesdb.service.CommentOnUnexistingMovie;
 import fr.decathlon.moviesdb.service.CommentService;
-import fr.decathlon.moviesdb.web.rest.errors.BadRequestAlertException;
 import fr.decathlon.moviesdb.service.dto.CommentDTO;
-
+import fr.decathlon.moviesdb.service.dto.TopDTO;
+import fr.decathlon.moviesdb.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -13,14 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,17 +29,14 @@ import java.util.Optional;
  * REST controller for managing {@link fr.decathlon.moviesdb.domain.Comment}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class CommentResource {
 
-    private final Logger log = LoggerFactory.getLogger(CommentResource.class);
-
     private static final String ENTITY_NAME = "comment";
-
+    private final Logger log = LoggerFactory.getLogger(CommentResource.class);
+    private final CommentService commentService;
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
-    private final CommentService commentService;
 
     public CommentResource(CommentService commentService) {
         this.commentService = commentService;
@@ -57,10 +55,14 @@ public class CommentResource {
         if (commentDTO.getId() != null) {
             throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CommentDTO result = commentService.save(commentDTO);
-        return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        try {
+            CommentDTO result = commentService.save(commentDTO);
+            return ResponseEntity.created(new URI("/api/v1/comments/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(result);
+        } catch (CommentOnUnexistingMovie e) {
+            throw new BadRequestAlertException("Movie does not exist", ENTITY_NAME, "unknownmovie_id");
+        }
     }
 
     /**
@@ -78,10 +80,14 @@ public class CommentResource {
         if (commentDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        CommentDTO result = commentService.save(commentDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, commentDTO.getId().toString()))
-            .body(result);
+        try {
+            CommentDTO result = commentService.save(commentDTO);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, commentDTO.getId().toString()))
+                .body(result);
+        } catch (CommentOnUnexistingMovie e) {
+            throw new BadRequestAlertException("Movie does not exist", ENTITY_NAME, "unknownmovie_id");
+        }
     }
 
     /**
@@ -109,6 +115,19 @@ public class CommentResource {
         log.debug("REST request to get Comment : {}", id);
         Optional<CommentDTO> commentDTO = commentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(commentDTO);
+    }
+
+    /**
+     * {@code GET  /top} : get top commented movies
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the {@link TopDTO}s list, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/top")
+    public ResponseEntity<List<TopDTO>> getTop(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate, Pageable pageable) {
+        log.debug("REST request to get top commented movies from : {}, to {}", startDate, endDate);
+        Page<TopDTO> tops = commentService.getTop(startDate, endDate, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), tops);
+        return ResponseEntity.ok().headers(headers).body(tops.getContent());
     }
 
     /**

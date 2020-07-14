@@ -15,7 +15,7 @@ public class CommentDTO implements Serializable {
     @Size(max = 1000)
     private String body;
 
-
+    @NotNull
     private Long movieId;
 
     public Long getId() {

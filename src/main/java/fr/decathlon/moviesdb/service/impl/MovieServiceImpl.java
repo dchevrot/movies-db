@@ -1,10 +1,10 @@
 package fr.decathlon.moviesdb.service.impl;
 
 import fr.decathlon.moviesdb.MovieSource;
-import fr.decathlon.moviesdb.exception.MoviesDBException;
-import fr.decathlon.moviesdb.service.MovieService;
 import fr.decathlon.moviesdb.domain.Movie;
+import fr.decathlon.moviesdb.exception.MoviesDBException;
 import fr.decathlon.moviesdb.repository.MovieRepository;
+import fr.decathlon.moviesdb.service.MovieService;
 import fr.decathlon.moviesdb.service.UnexistingMovieException;
 import fr.decathlon.moviesdb.service.dto.MovieCreationDTO;
 import fr.decathlon.moviesdb.service.dto.MovieDTO;
@@ -12,7 +12,6 @@ import fr.decathlon.moviesdb.service.mapper.MovieMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,10 +44,10 @@ public class MovieServiceImpl implements MovieService {
     public MovieDTO save(MovieCreationDTO movieCreationDTO) {
         log.debug("Request to save Movie : {}", movieCreationDTO);
 
-        if(movieCreationDTO == null) {
+        if (movieCreationDTO == null) {
             throw new IllegalArgumentException("movie to be create must not be null");
         }
-        if(StringUtils.isEmpty(movieCreationDTO.getTitle())) {
+        if (StringUtils.isEmpty(movieCreationDTO.getTitle())) {
             throw new IllegalArgumentException("title must not be empty");
         }
 
@@ -88,8 +87,12 @@ public class MovieServiceImpl implements MovieService {
     @Transactional(readOnly = true)
     public Optional<MovieDTO> findOne(Long id) {
         log.debug("Request to get Movie : {}", id);
-        return movieRepository.findById(id)
-            .map(movieMapper::toDto);
+        try {
+            return movieRepository.findById(id)
+                .map(movieMapper::toDto);
+        } catch (DataAccessException e) {
+            throw new MoviesDBException("error retrieving movie with id " + id);
+        }
     }
 
     @Override

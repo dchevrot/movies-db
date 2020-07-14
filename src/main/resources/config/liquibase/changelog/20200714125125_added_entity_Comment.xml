@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity Comment.
     -->
@@ -21,6 +21,10 @@
             <column name="movie_id" type="bigint">
                 <constraints nullable="false" />
             </column>
+            <column name="creation_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            creation_date
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
